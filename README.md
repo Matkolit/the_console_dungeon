@@ -1,145 +1,146 @@
-# 📘 Dokumentacja Projektowa  
+# 📘 Project Documentation  
 ## **"Legends of Java: The Console Dungeon"**
 
 ---
 
-## 1. 🎯 Opis Projektu
+## 1. 🎯 Project Description
 
-**Cel:**  
-Stworzenie turowej gry RPG działającej w konsoli (z opcją rozbudowy o GUI), która demonstruje kluczowe paradygmaty programowania obiektowego w Javie.
+**Goal:**  
+To create a turn-based RPG game running in the console (with an optional GUI extension), demonstrating key object-oriented programming paradigms in Java.
 
-**Fabuła:**  
-Gracz wciela się w bohatera, który eksploruje lochy zwane **"The Java Heap"**, aby pokonać ostatecznego przeciwnika — **Garbage Collectora**. Po drodze mierzy się z mniejszymi potworami (Bugami) i zdobywa przedmioty.
-
----
-
-## 2. 🎮 Zasady Gry (Funkcjonalności)
-
-### ➤ Eksploracja
-- Gracz porusza się po mapie złożonej z połączonych pokoi (N, S, E, W).
-
-### ➤ Walka
-- Turowy system walki.
-- Dostępne akcje: *Atak*, *Obrona*, *Użycie przedmiotu*, *Ucieczka*.
-- Przeciwnik odpowiada swoim ruchem.
-
-### ➤ Rozwój Postaci
-- Za pokonanie wrogów gracz zdobywa XP.
-- Awans zwiększa statystyki (HP, Siła).
-
-### ➤ Ekwipunek
-- Zbieranie mikstur, broni oraz łupów.
-
-### ➤ Warunek zwycięstwa
-- Pokonanie Bossa na ostatnim poziomie.
-
-### ➤ Warunek porażki
-- HP gracza spada do 0 lub poniżej.
+**Story:**  
+The player becomes a hero exploring the dungeons known as **"The Java Heap"** to defeat the ultimate foe — the **Garbage Collector**. Along the way, the player fights smaller monsters (Bugs) and collects items.
 
 ---
 
-## 3. 🏗 Architektura Techniczna
+## 2. 🎮 Game Mechanics (Features)
 
-Projekt realizuje wymagania z OOP poprzez poniższą strukturę:
+### ➤ Exploration
+- The player moves through a map composed of connected rooms (N, S, E, W).
+
+### ➤ Combat
+- Turn-based battle system.
+- Actions available: *Attack*, *Defend*, *Use Item*, *Run*.
+- The enemy responds with their own action.
+
+### ➤ Character Progression
+- Defeating enemies grants XP.
+- Leveling up increases stats (HP, Strength).
+
+### ➤ Inventory
+- Collecting potions, weapons, and loot.
+
+### ➤ Win Condition
+- Defeating the Boss on the final level.
+
+### ➤ Lose Condition
+- The player’s HP reaches 0 or below.
 
 ---
 
-### **A. Hierarchia Klas (Dziedziczenie i Polimorfizm)**
+## 3. 🏗 Technical Architecture
 
-Wspólną bazą jest klasa abstrakcyjna:
+The project fulfills OOP requirements through the following structure:
+
+---
+
+### **A. Class Hierarchy (Inheritance & Polymorphism)**
+
+The common base is an abstract class:
 
 #### `abstract class Creature`
-**Pola:**
+**Fields:**
 - `name`
 - `health`
 - `strength`
 - `level`
 
-**Metody:**
+**Methods:**
 - `attack()`
 - `takeDamage()`
 - `isAlive()`
 
 #### `class Player extends Creature`
-- Dodatkowe pola: `experience`, `Inventory`, `profession`.
+Additional fields: `experience`, `Inventory`, `profession`.
 
 #### `class Monster extends Creature`
-- Pole: `lootDropChance`.
+Field: `lootDropChance`.
 
 #### `class Boss extends Monster`
-- Dodatkowo: `specialAttack()` 
+Additional method: `specialAttack()`.
 
 ---
 
-### **B. Interfejsy**
+### **B. Interfaces**
 
 #### `interface Lootable`
-- Implementowane przez skrzynie i potwory.  
-- Metoda: `getLoot()`.
+- Implemented by chests and monsters.  
+- Method: `getLoot()`.
 
 #### `interface Consumable`
-- Dla mikstur i jednorazowych przedmiotów.  
-- Metoda: `consume(Player p)`.
+- For potions and one-time-use items.  
+- Method: `consume(Player p)`.
 
 #### `interface Saveable`
-- Dla elementów zapisywanych w stanie gry.
+- For objects that must be saved as part of the game state.
 
 ---
 
-### **C. Wzorce Projektowe**
+### **C. Design Patterns**
 
 #### **Singleton – `GameEngine`**
-- Gwarantuje istnienie tylko jednej instancji sterującej grą.
+- Ensures only one instance that manages the entire game.
 
 #### **Factory Method – `MonsterFactory`**
-- Przykład:  
-  `MonsterFactory.createRandomMonster(level)`  
-- Ułatwia skalowanie gry.
+Example use:  
+`MonsterFactory.createRandomMonster(level)`  
+- Improves scalability and readability.
 
-#### **State Pattern (opcjonalnie)**
-- Klasy: `ExplorationState`, `CombatState`, `MenuState`.
-
----
-
-## 4. 👥 Podział Zadań (Zespół 3-osobowy)
+#### **State Pattern (optional)**
+- Example states: `ExplorationState`, `CombatState`, `MenuState`.
 
 ---
 
-### 🧩 **Osoba A: "Silnik i Architektura" – *The Architect***
-**Główna odpowiedzialność:** całościowa logika gry i spójność projektu.
-
-**Zadania:**
-- Implementacja `GameEngine` + wzorca Singleton.
-- Obsługa wejścia/wyjścia (Scanner).
-- System zapisu/odczytu gry.
-- Zarządzanie repo (Git), rozwiązywanie konfliktów.
+## 4. 👥 Team Task Distribution (3 Members)
 
 ---
 
-### ⚔️ **Osoba B: "System Walki i Postacie" – *The Warrior***
-**Główna odpowiedzialność:** mechanika walki i klasy Creature.
+### 🧩 **Person A: "Engine & Architecture" – *The Architect***
+**Main responsibility:** Core game logic and overall project structure.
 
-**Zadania:**
-- Tworzenie hierarchii: `Creature`, `Player`, `Monster`.
-- System tur, obrażeń, krytyków, uników.
-- Fabryka potworów (`MonsterFactory`).
-- System levelowania.
-
----
-
-### 🌍 **Osoba C: "Świat, Przedmioty i GUI" – *The World Builder***
-**Główna odpowiedzialność:** mapa, itemy i ewentualne GUI.
-
-**Zadania:**
-- Klasa `Room`, tworzenie mapy.
-- System ekwipunku (`Inventory`).
-- Tworzenie itemów (`Item`, `Weapon`, `Potion`).
-- Interfejsy `Consumable`, `Lootable`.
-- Opcjonalne GUI (Swing / JavaFX).
+**Tasks:**
+- Implement `GameEngine` + Singleton pattern.
+- Handle input/output (Scanner).
+- Game saving/loading system.
+- Manage the Git repository and resolve merge conflicts.
 
 ---
 
-## 5. 📊 Diagram Klas (Uproszczony)
+### ⚔️ **Person B: "Combat & Characters" – *The Warrior***
+**Main responsibility:** Combat mechanics and creature classes.
+
+**Tasks:**
+- Implement the hierarchy: `Creature`, `Player`, `Monster`.
+- Turn system, damage, critical hits, evasion.
+- MonsterFactory implementation.
+- Level-up and stat system.
+
+---
+
+### 🌍 **Person C: "World, Items & GUI" – *The World Builder***
+**Main responsibility:** Map, items, and optional GUI.
+
+**Tasks:**
+- Implement `Room` class and map generation.
+- Inventory system (`Inventory`).
+- Item hierarchy (`Item`, `Weapon`, `Potion`).
+- Interfaces: `Consumable`, `Lootable`.
+- Optional GUI using Swing / JavaFX.
+
+---
+
+## 5. 📊 Class Diagram (Simplified)
+
 
       +------------------+
       |    GameEngine    |  (Singleton)
