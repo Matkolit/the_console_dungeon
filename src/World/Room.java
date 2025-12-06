@@ -1,3 +1,5 @@
+package src.World;
+
 public class Room {
     private String description;
     private boolean hasMonster;

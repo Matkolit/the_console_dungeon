@@ -1,17 +1,16 @@
+package src.World
+
 public class Map {
     private Room startRoom;
 
-    public Map() {
-        generate();
-    }
-
+ 
     private void generate() {
-        Room r1 = new Room("Cmentarz");
-        Room r2 = new Room("Podziemny tunel");
-        Room r3 = new Room("Zniszczona biblioteka");
-        Room r4 = new Room("Sarkofag");
-        Room r5 = new Room("Katakumby");
-        Room r6 = new Room("Tajemne sanktuarium");
+        Room r1 = new Room("Cemetery");
+        Room r2 = new Room("Darkness Tunnel");
+        Room r3 = new Room("Ruined Library");
+        Room r4 = new Room("Sarcophagus");
+        Room r5 = new Room("Catacombs");
+        Room r6 = new Room("Secret Sanctuary");
 
         r1.setEast(r2);
         r2.setEast(r3);
@@ -25,4 +24,8 @@ public class Map {
 
     public Room getStartRoom() {
         return startRoom;
+
+    }   public Map() {
+        generate();
     }
+}
